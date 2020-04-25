@@ -5,9 +5,9 @@ global sig block
 %symble period
 sig.T_sy = 1e-3;
 %number of symbles of the clock
-sig.n_sy_c = 15; 
+sig.n_sy_c = 20; 
 %number of symbles of the prbs
-sig.n_sy_prbs = 64-sig.n_sy_c;
+sig.n_sy_prbs = 32-sig.n_sy_c;
 %number of samples per symble
 sig.n_sy_sam = 32;
 %number of aditional samples inside each symble (always even)
@@ -27,14 +27,15 @@ sig.F_sam = 1/sig.T_sam;
 %sampling frequency
 sig.F_over_sam = 1/sig.T_over_sam; 
 %total number of samples (over sampled) 
-sig.n_over_sam = sig.n_sy*sig.n_sy_sam + sig.n_sy*sig.n_sy_sam*sig.n_sy_add_over_sam - sig.n_sy_add_over_sam;
+sig.n_over_sam = sig.n_sy*sig.n_sy_sam + sig.n_sy*sig.n_sy_sam*sig.n_sy_add_over_sam ...
+    - sig.n_sy_add_over_sam + sig.n_sam*(1+sig.n_sy_add_over_sam);
 %estimated delay (s)
-sig.delay = 0*1e-3;
+sig.delay = 1*1e-3;
 
 %BESSEL FILTER
 
 %cuttoff frequency
-bess_spec.fc = 0.1e3;
+bess_spec.fc = 1e3;
 %filter order
-bess_spec.n_bess = 50; 
+bess_spec.n_bess = 3; 
 

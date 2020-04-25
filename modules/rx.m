@@ -2,7 +2,7 @@ function [] = rx(y_ch)
     
     global sig block
     %OVERSAMPLING
-    block.t_rx = (0:(sig.n_over_sam-1))*sig.T_over_sam;
+    block.t_rx = (-(sig.n_sam/2)*(1+sig.n_sy_add_over_sam):(sig.n_over_sam-(sig.n_sam/2)*(1+sig.n_sy_add_over_sam)-1))*sig.T_over_sam;
     block.f_rx = (-sig.n_over_sam/2+1:sig.n_over_sam/2)*(sig.F_over_sam/sig.n_over_sam);
     block.y_rx = interp1(block.t_tx,y_ch,block.t_rx,'previous');
       
