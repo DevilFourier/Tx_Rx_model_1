@@ -27,8 +27,8 @@ y_ch = channel(Y_tx);
 %RX
 rx(y_ch);
 
-plot_data({'x_tx','y_ch','y_rx','xco'},block)
+plot_data({'x_tx','y_ch','y_rx','clock_rx','xco','const'},block)
 
 fprintf('Estimated delay: %d\n',sig.delay)
 fprintf('Real delay (filter + channel): %d\n',block.delay)
-
+fprintf('Phase: %d\n',rem(rad2deg(block.theta),360))

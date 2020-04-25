@@ -71,5 +71,13 @@ function [] = plot_data(plt,block)
                 xlabel('frequency [KHz]')
                 ylabel('Amplitude')
                 title('Bessel Filter')
+            case 'const'
+                figure
+                scatter(block.const.*cos(block.theta),block.const.*sin(block.theta))
+                xlim([-1.5 1.5])
+                ylim([-1.5 1.5])
+                xlabel('I')
+                ylabel('Q')
+                title('Constellation')
         end
 end

@@ -8,7 +8,7 @@ function Y_tx = tx(bess_spec)
     block.x_tx=[block.clock_tx block.prbs_tx];
     block.X_tx=fftshift(fft(block.x_tx));
     block.H_bess=bessel_filter(block.f_tx,bess_spec.fc,bess_spec.n_bess);
-    block.Y_tx = block.H_bess.*block.X_tx;
+    block.Y_tx = abs(block.H_bess).*block.X_tx;
     Y_tx = block.Y_tx;
     
 end
