@@ -5,7 +5,7 @@ global sig block
 %symble period
 sig.T_sy = 1e-3;
 %number of symbles of the clock
-sig.n_sy_c = 20; 
+sig.n_sy_c = 10; 
 %number of symbles of the prbs
 sig.n_sy_prbs = 32-sig.n_sy_c;
 %number of samples per symble

@@ -2,7 +2,7 @@ function Y_tx = tx(bess_spec)
     
     global sig block
     block.t_tx = (-sig.n_sam/2:(1.5*sig.n_sam-1))*sig.T_sam;
-    block.f_tx = (-sig.n_sam+1:sig.n_sam).*(sig.F_sam/sig.n_sam);
+    block.f_tx = (-sig.n_sam+1:sig.n_sam).*(sig.F_sam/(2*sig.n_sam));
     block.clock_tx = clock_gen(sig.n_sy_c,sig.n_sy_sam);
     block.prbs_tx = prbs_gen(sig.n_sy_prbs,sig.n_sy_sam);
     block.x_tx=[zeros(1,sig.n_sam/2) block.clock_tx block.prbs_tx zeros(1,sig.n_sam/2)];
