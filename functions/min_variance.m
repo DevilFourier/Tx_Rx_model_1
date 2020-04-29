@@ -12,7 +12,8 @@ function idx = min_variance(y_rx,sig,type)
     end
     
     for ii=1:kk
-        var_rx(ii) = var(abs(y_rx(ii:(kk):jj)));
+        s = sum((abs(y_rx(ii:kk:jj))-1).^2);
+        var_rx(ii) = s/(sig.n_sy-2);
     end
     [m,idx(1)] = min(var_rx);
     
