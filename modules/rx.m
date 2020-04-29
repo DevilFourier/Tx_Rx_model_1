@@ -2,10 +2,14 @@ function [] = rx(y_ch)
     
     global sig block
     
+    %FILTERING
+    block.Y_ch_f = ideal_filter(block.f_tx,sig.ideal_fc).*fftshift(fft(y_ch));
+    block.y_ch_f = ifft(ifftshift(block.Y_ch_f),'symmetric');
+    
     %OVERSAMPLING
     block.t_rx = (-(sig.n_sam/2)*(1+sig.n_sy_add_over_sam):(sig.n_over_sam-(sig.n_sam/2)*(1+sig.n_sy_add_over_sam)-1))*sig.T_over_sam;
     block.f_rx = (-sig.n_over_sam/2+1:sig.n_over_sam/2)*(sig.F_over_sam/sig.n_over_sam);
-    block.y_rx = interp1(block.t_tx,y_ch,block.t_rx,'previous');
+    block.y_rx = interp1(block.t_tx,block.y_ch_f,block.t_rx,'previous');
       
     %CLOCK GENERATION
     block.clock_rx = clock_gen(sig.n_sy_c,sig.n_sy_sam*(sig.n_sy_add_over_sam+1));

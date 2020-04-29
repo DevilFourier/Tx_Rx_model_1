@@ -67,6 +67,28 @@ function [] = plot_data(plt,block)
                 xlabel('frequency [KHz]')
                 ylabel('\theta')
                 title('X_{ch} Phase')
+            case 'Y_ch_f_mod'
+                figure
+                plot(block.f_tx/1e3,abs(block.Y_ch_f).^2,'-b','LineWidth',1.4)
+                xlim([block.f_tx(1) block.f_tx(end)]/1e3)
+                xlabel('frequency [KHz]')
+                ylabel('Amplitude')
+                title('Y_{ch_f} Module')
+            case 'Y_ch_f_pha'
+                figure
+                plot(block.f_tx/1e3,rad2deg(angle(block.Y_ch_f)),'-b','LineWidth',1.4)
+                xlim([block.f_tx(1) block.f_tx(end)]/1e3)
+                xlabel('frequency [KHz]')
+                ylabel('\theta')
+                title('X_{ch_f} Phase')
+            case 'y_ch_f'
+                figure
+                plot(block.t_tx/1e-3,block.y_ch_f,'-b','LineWidth',1.4)
+                xlim([block.t_tx(1) block.t_tx(end)]/1e-3)
+                ylim([-1.5 1.5])
+                xlabel('time [ms]')
+                ylabel('Amplitude')
+                title('y_{ch_f}')
             case 'y_rx'
                 figure
                 plot(block.t_rx/1e-3,block.y_rx,'-b','LineWidth',1.4)
@@ -75,7 +97,7 @@ function [] = plot_data(plt,block)
                 xlabel('time [ms]')
                 ylabel('Amplitude')
                 title('y_{rx}')
-           case 'clock_rx'
+            case 'clock_rx'
                 figure
                 plot(block.t_rx/1e-3,block.clock_rx,'-b','LineWidth',1.4)
                 xlim([block.t_rx(1) block.t_rx(end)]/1e-3)
@@ -94,7 +116,7 @@ function [] = plot_data(plt,block)
                 title('Cross Correlation')
             case 'Hb_mod'
                 figure
-                plot(block.f_tx/1e3,abs(block.H_bess).^2,'-b','LineWidth',1.4)
+                plot(block.f_tx/1e3,abs(block.H_bess_tx).^2,'-b','LineWidth',1.4)
                 xlim([block.f_tx(1) block.f_tx(end)]/1e3)
                 xlabel('frequency [KHz]')
                 ylabel('Amplitude')

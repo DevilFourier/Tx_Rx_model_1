@@ -7,8 +7,8 @@ function Y_tx = tx(bess_spec)
     block.prbs_tx = prbs_gen(sig.n_sy_prbs,sig.n_sy_sam);
     block.x_tx=[zeros(1,sig.n_sam/2) block.clock_tx block.prbs_tx zeros(1,sig.n_sam/2)];
     block.X_tx=fftshift(fft(block.x_tx));
-    block.H_bess=bessel_filter(block.f_tx,bess_spec.fc,bess_spec.n_bess);
-    block.Y_tx = abs(block.H_bess).*block.X_tx;
+    block.H_bess_tx=bessel_filter(block.f_tx,bess_spec.fc,bess_spec.n_bess);
+    block.Y_tx = abs(block.H_bess_tx).*block.X_tx;
     block.y_tx = ifft(ifftshift(block.Y_tx),'symmetric');
     Y_tx = block.Y_tx;
     

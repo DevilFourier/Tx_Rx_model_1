@@ -22,12 +22,12 @@ parameters;
 Y_tx = tx(bess_spec);
 
 %CHANNEL 
-y_ch = channel(Y_tx);
+y_ch = channel(Y_tx,awgn);
 
 %RX
 rx(y_ch);
 
-plot_data({'y_tx','y_ch','xco','Hb_mod','y_rx','const'},block)
+plot_data({'y_ch'},block)
 
 fprintf('Estimated delay: %d\n',sig.delay)
 fprintf('Real delay (filter + channel): %d\n',block.delay)
