@@ -1,6 +1,7 @@
 function [] = rx(y_ch)
     
     global sig block
+    
     %OVERSAMPLING
     block.t_rx = (-(sig.n_sam/2)*(1+sig.n_sy_add_over_sam):(sig.n_over_sam-(sig.n_sam/2)*(1+sig.n_sy_add_over_sam)-1))*sig.T_over_sam;
     block.f_rx = (-sig.n_over_sam/2+1:sig.n_over_sam/2)*(sig.F_over_sam/sig.n_over_sam);
@@ -11,27 +12,21 @@ function [] = rx(y_ch)
     block.clock_rx = [block.clock_rx zeros(1,sig.n_over_sam-length(block.clock_rx))];
     clock_rx = block.clock_rx;
     
-    for ii=1:sig.n_over_sam
-        block.xco(ii) = sum(block.y_rx.*clock_rx);
-        clock_rx = [0 clock_rx(1:end-1)];
-    end
-    [pk,idx] = max(block.xco);
-    block.dl_ps = idx;
-    block.delay = block.t_rx(idx);
+    %CROSS CORRELATION
+    [block.dl_ps,block.xco] = x_correlation(clock_rx,block.y_rx,sig.n_over_sam);
     
+    %DELAY RECOVERY
+    block.delay = block.t_rx(block.dl_ps);
+    
+    %SIGNAL RECOVERY
     block.Y_rx = fftshift(fft(block.y_rx));
     block.Y_rx = block.Y_rx.*exp(i*2*pi*block.f_rx*block.delay);
     block.y_rx = ifft(ifftshift(block.Y_rx),'symmetric');
     
-    %VARIANCE
-    for ii=1:sig.n_sy_over_sam
-        s = sum((abs(block.y_rx(ii:sig.n_sy_over_sam:(sig.n_over_sam-sig.n_sy_over_sam)))-1).^2);
-        var_rx(ii) = s/(sig.n_sy-2);
-    end
-    [m,idx] = min(var_rx);
+    %MIN VARIANCE
+    idx = min_variance(block.y_rx,sig,"over_sam");
     
-    %CONSTELLATION 
-    block.const = block.y_rx(idx:sig.n_sy_over_sam:(sig.n_over_sam-sig.n_sy_over_sam+1));
-    block.theta = pi*(block.delay/sig.T_sy);
+    %CONSTELATION 
+    [block.const_d, block.theta] = const_dg(idx,sig,block.y_rx,block.delay);
     
 end

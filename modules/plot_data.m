@@ -101,7 +101,7 @@ function [] = plot_data(plt,block)
                 title('Bessel Filter')
             case 'const'
                 figure
-                scatter(block.const.*cos(block.theta),block.const.*sin(block.theta))
+                scatter(block.const_d.*cos(block.theta),block.const_d.*sin(block.theta))
                 xlim([-1.5 1.5])
                 ylim([-1.5 1.5])
                 xlabel('I')
