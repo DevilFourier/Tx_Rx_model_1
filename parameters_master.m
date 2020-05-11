@@ -29,6 +29,6 @@ bess_spec.n_bess = 50;
 %NOISE
 
 %variance
-awgn.var = 0.1;
+Awgn.var = 0.1;
 %mean
-awgn.mean = 0; 
+Awgn.mean = 0; 

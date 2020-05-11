@@ -3,7 +3,7 @@ close all; clear all; clc;
 parameters_master;
 
 %total number of symble
-sig.n_sy = 4096;
+sig.n_sy = 64;
 
 for ii = [1:sig.n_sy/2]
     %number of symbles of the clock
