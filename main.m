@@ -19,15 +19,15 @@ addpath(genpath('modules/'));
 parameters;
 
 %TX
-Y_tx = tx(bess_spec);
+y_tx = tx(bess_spec);
 
 %CHANNEL 
-y_ch = channel(Y_tx,awgn);
+y_ch = channel(y_tx,Awgn);
 
 %RX
-rx(y_ch);
+rx(y_ch,Awgn);
 
-plot_data({'y_ch'},block)
+plot_data({'y_ch','y_rx','xco'},block)
 
 fprintf('Estimated delay: %d\n',sig.delay)
 fprintf('Real delay (filter + channel): %d\n',block.delay)

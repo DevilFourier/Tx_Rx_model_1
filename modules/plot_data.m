@@ -47,8 +47,8 @@ function [] = plot_data(plt,block)
                 title('Y_{tx} Phase')
             case 'y_ch'
                 figure
-                plot(block.t_tx/1e-3,block.y_ch,'-b','LineWidth',1.4)
-                xlim([block.t_tx(1) block.t_tx(end)]/1e-3)
+                plot(block.t_rx/1e-3,block.y_ch,'-b','LineWidth',1.4)
+                xlim([block.t_rx(1) block.t_rx(end)]/1e-3)
                 ylim([-1.5 1.5])
                 xlabel('time [ms]')
                 ylabel('Amplitude')

@@ -1,4 +1,4 @@
-function Y_tx = tx(bess_spec)
+function y_tx = tx(bess_spec)
     
     global sig block
     block.t_tx = (-sig.n_sam/2:(1.5*sig.n_sam-1))*sig.T_sam;
@@ -10,6 +10,6 @@ function Y_tx = tx(bess_spec)
     block.H_bess_tx=bessel_filter(block.f_tx,bess_spec.fc,bess_spec.n_bess);
     block.Y_tx = abs(block.H_bess_tx).*block.X_tx;
     block.y_tx = ifft(ifftshift(block.Y_tx),'symmetric');
-    Y_tx = block.Y_tx;
+    y_tx = block.y_tx;
     
 end
