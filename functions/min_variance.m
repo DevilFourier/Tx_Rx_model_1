@@ -1,30 +1,12 @@
-function idx = min_variance(y_rx,sig,type)
-    %MIN VARIANCE
-    if type=="over_sam"
-        ll = sig.n_over_sam;
-        jj = ll-(sig.n_sy_add_over_sam+1)*(sig.n_sam/2)-(sig.n_sy_sam-1)*sig.n_sy_add_over_sam-sig.n_sy_sam;
-        kk = sig.n_sy_over_sam;
-    end 
-    if type=="sam"
-        ll = 2*sig.n_sam;
-        jj = ll - sig.n_sy_sam;
-        kk = sig.n_sy_sam;
+function [y_min_var,idx] = min_variance(y,n_sam_sy,n_add_sam,n_sy)
+
+    y = [y zeros(1,n_add_sam)];
+    for ii=1:n_sam_sy
+            s = sum((abs(y(ii:n_sam_sy:length(y))-1).^2));
+            var(ii) = s/(length(s)-1);
     end
     
-    for ii=1:kk
-        s = sum((abs(y_rx(ii:kk:jj))-1).^2);
-        var_rx(ii) = s/(sig.n_sy-2);
-    end
-    [m,idx(1)] = min(var_rx);
+    [m,idx] = min(var);
+    y_min_var = y(idx:n_sam_sy:length(y));
     
-    if type=="sam"
-        idx(1) = idx(1) + ll/4;
-        idx(2) = jj-ll/4;
-        idx(3) = kk;
-    end
-    if type=="over_sam"
-        idx(1) = idx(1) + (sig.n_sy_add_over_sam+1)*(sig.n_sam/2);
-        idx(2) = jj;
-        idx(3) = kk;
-    end
 end
