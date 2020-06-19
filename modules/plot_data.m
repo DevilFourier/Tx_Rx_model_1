@@ -108,9 +108,8 @@ function [] = plot_data(plt,block)
             case 'xco'
                 figure
                 hold on
-                stem(block.t_rx/1e-3,block.xco,'-b','LineWidth',1.4)
-                stem(block.t_rx(block.dl_ps)/1e-3,block.xco(block.dl_ps),'*r','LineWidth',3)
-                xlim([block.t_rx(1) block.t_rx(end)]/1e-3)
+                stem(block.xco,'-b','LineWidth',1.4)
+                stem(block.dl_ps,block.xco(block.dl_ps),'*r','LineWidth',3)
                 xlabel('time [ms]')
                 ylabel('Amplitude')
                 title('Cross Correlation')
