@@ -37,7 +37,7 @@ sig.F_sam_ch = 1/sig.T_sam_ch;
 sig.n_sam_ch = sig.n_sy*sig.n_sam_sy_tx + sig.n_sy*sig.n_sam_sy_tx*sig.n_add_sam_ch ...
     - sig.n_add_sam_ch + sig.n_sam_tx*(1+sig.n_add_sam_ch);
 %channel delay (seconds)
-sig.delay = 5*1e-3;
+sig.delay = 0*1e-3;
 %chennel delay (samples)
 sig.sam_delay = round(sig.delay/sig.T_sam_ch);
 
@@ -52,8 +52,6 @@ sig.n_add_sam_rx = 4;
 sig.n_sam_ac = 2*sig.n_sy*(sig.T_sy/sig.T_sam_ac);
 %total number of samples on RX
 sig.n_sam_rx = (2*sig.n_sy*(sig.T_sy/sig.T_sam_ac)-1)*sig.n_add_sam_rx + 2*sig.n_sy*(sig.T_sy/sig.T_sam_ac);
-
-
 
 
 
