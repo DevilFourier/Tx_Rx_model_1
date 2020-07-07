@@ -14,7 +14,7 @@ sig.n_sy = sig.n_sy_c + sig.n_sy_prbs;
 
 %TX
 %number of samples per symble on TX
-sig.n_sam_sy_tx = 4;
+sig.n_sam_sy_tx = 2;
 %total number of samples on TX
 sig.n_sam_tx = (sig.n_sy_c+sig.n_sy_prbs)*sig.n_sam_sy_tx;
 %sample period on TX
@@ -24,7 +24,7 @@ sig.F_sam_tx = 1/sig.T_sam_tx;
 
 %CH
 %number of aditional samples inside each symble on CH (always even)
-sig.n_add_sam_ch = 4;
+sig.n_add_sam_ch = 2;
 %cutoff frequency (ideal filter)
 sig.ideal_fc = 1e3;
 %number of samples per symble (over sampled) 
@@ -47,25 +47,21 @@ sig.T_sam_ac = 0.5*sig.T_sy;
 %samples by symble
 sig.n_sam_ac_sy = sig.T_sy/sig.T_sam_ac;
 %number of aditional samples inside each symble on CH (always even)
-sig.n_add_sam_rx = 4;
+sig.n_add_sam_rx = 2;
 %total number of acquisition samples
 sig.n_sam_ac = 2*sig.n_sy*(sig.T_sy/sig.T_sam_ac);
 %total number of samples on RX
 sig.n_sam_rx = (2*sig.n_sy*(sig.T_sy/sig.T_sam_ac)-1)*sig.n_add_sam_rx + 2*sig.n_sy*(sig.T_sy/sig.T_sam_ac);
 
-
-
 %BESSEL FILTER
-
 %cuttoff frequency
 bess_spec.fc = 0.2*1e3;
 %filter order
 bess_spec.n_bess = 50; 
 
 %NOISE
-
 %variance
-Awgn.var = 0.0;
+Awgn.var = 0.1;
 %mean
 Awgn.mean = 0; 
 

@@ -13,24 +13,10 @@ function [] = rx(y_ch,Awgn)
     %OVERSAMPLING
     block.t_rx_sam = linspace(0,1,sig.n_sam_ac);
     block.t_rx = linspace(0,1,sig.n_sam_rx);
-    %block.y_rx_sam = [-block.y_rx_sam(2) block.y_rx_sam(1:end-1)];
-    block.y_rx = interp1(block.t_rx_sam,block.y_rx_sam,block.t_rx);
-%     figure(10)
-%     stem(block.y_rx)
-    %block.y_rx = [block.y_rx((sig.n_add_sam_rx/2+2):end) zeros(1,sig.n_add_sam_rx/2+1)];
-    
-    %CLOCK GENERATION
-    %block.clock_rx = clock_gen(sig.n_sy_c,sig.n_sam_ac_sy*sig.n_add_sam_rx+sig.n_sam_ac_sy);
-    %block.clock_rx = [block.clock_rx zeros(1,sig.n_sam_rx-length(block.clock_rx))];
-    
-    block.clock_rx = clock_gen(sig.n_sy_c, sig.n_sam_ac_sy);
-    len = length(block.clock_rx);
-    block.clock_rx = [block.clock_rx zeros(1,sig.n_sam_ac - length(block.clock_rx))];
-    block.clock_rx = [-1 block.clock_rx(1:end-1)];
-    block.clock_rx(len+2) = -block.clock_rx(len);
-    block.clock_rx = interp1(block.t_rx_sam,block.clock_rx,block.t_rx);
-    block.clock_rx = [block.clock_rx((sig.n_add_sam_rx/2+2):end) zeros(1,sig.n_add_sam_rx/2+1)];
-    block.clock_rx = [block.clock_rx(1:sig.n_sy_c*(sig.n_sam_ac_sy*(1+sig.n_add_sam_rx))) zeros(1,sig.n_sam_rx-sig.n_sy_c*(sig.n_sam_ac_sy*(1+sig.n_add_sam_rx)))];
+    block.y_rx = interp1(block.t_rx_sam,block.y_rx_sam,block.t_rx, 'previous');
+
+    block.clock_rx = clock_gen(sig.n_sy_c, sig.n_sam_sy_ch);
+    block.clock_rx = [block.clock_rx zeros(1,sig.n_sam_rx - length(block.clock_rx))];
 
     %CROSS CORRELATION
     [block.dl_ps,block.xco] = x_correlation(block.clock_rx,block.y_rx,sig.n_sam_rx);
